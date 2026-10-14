@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>発信</title>
+<style>
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;background:#fff;color:#1a1a2e}
+main{max-width:480px;margin:0 auto;padding:48px 16px;text-align:center}
+.company{font-size:18px;margin-bottom:8px;word-break:break-all}
+.number{font-size:30px;letter-spacing:.04em;margin-bottom:32px}
+a.call{display:block;background:#16367A;color:#fff;font-size:24px;padding:22px;border-radius:14px;text-decoration:none}
+.note{margin-top:40px;font-size:12px;color:#777;line-height:1.6}
+.empty{color:#999}
+</style>
+</head>
+<body>
+<main>
+  <div class="company" id="company"></div>
+  <div class="number" id="number"></div>
+  <a class="call" id="call" href="#">電話をかける</a>
+  <p class="note">株式会社ASCODE 社内の架電用ページです。<br>スプレッドシートの電話番号から開き、ボタンで発信します。<br>番号はこの端末の中だけで使い、どこにも保存・送信しません。</p>
+</main>
+<script>
+const p = new URLSearchParams(location.hash.slice(1));
+const n = (p.get('n') || '').replace(/[^0-9+]/g, '');
+document.getElementById('company').textContent = p.get('c') || '';
+const num = document.getElementById('number');
+const btn = document.getElementById('call');
+if (n) {
+  num.textContent = n;
+  btn.href = 'tel:' + n;
+} else {
+  num.textContent = '番号がありません';
+  num.className = 'number empty';
+  btn.style.display = 'none';
+}
+</script>
+</body>
+</html>
